@@ -2,17 +2,23 @@
     <div class="form-group col-sm-6 col-md-6 col-lg-zhifu_7"
          ng-repeat="formulaire in paragraph.settings.forms | toArray"
          ng-init="loadForm(formulaire, paragraph.settings.params)">
-         <!-- 对导出的 json 文件中的 forms 列表进行循环 -->
-         <label class="control-label input-sm" ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }">{{formulaire.name}}</label>
+        <h6>{{formulaire.name}}</h6>
+        <!-- 对导出的 json 文件中的 forms 列表进行循环 -->
+        <!-- 名字：取 以 "-" 分隔的第一个参数 -->
+        <label class="control-label input-sm" ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }">{{formulaire.name}}</label>
+
         <div>
-          <!-- textBox -->
-          <input class="form-control input-sm"
-                 ng-if="!paragraph.settings.forms[formulaire.name].options"
-                 ng-enter="runParagraph(getEditorValue())"
-                 ng-model="paragraph.settings.params[formulaire.name]"
-                 ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }"
-                 name="{{formulaire.name}}">
+        <!-- 输入框 -->
+        <input class="form-control input-sm"
+             ng-if="!paragraph.settings.forms[formulaire.name].options"
+             ng-enter="runParagraph(getEditorValue())"
+             ng-model="paragraph.settings.params[formulaire.name]"
+             ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }"
+             name="{{formulaire.name}}">
         </div>
+
+
+        <!-- 下拉框 -->
         <!-- unOnSelectionChange == true && type = 'select'  -->
         <div ng-if="paragraph.config.runOnSelectionChange == true">
           <select class="form-control input-sm"
@@ -35,6 +41,9 @@
                   ng-options="option.value as (option.displayName||option.value) for option in paragraph.settings.forms[formulaire.name].options">
           </select>
         </div>
+
+
+        <!-- 复选框 -->
         <!-- unOnSelectionChange == true && type = 'checkbox' -->
         <!-- <div ng-if="paragraph.config.runOnSelectionChange == true && paragraph.settings.forms[formulaire.name].type == 'checkbox'">
           <label ng-repeat="option in paragraph.settings.forms[formulaire.name].options" class="checkbox-item input-sm">
