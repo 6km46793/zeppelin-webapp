@@ -19,3 +19,17 @@ zeppelin 只支三种表单控件：输入框、下拉框、复选框，样式�
 3 支持时间段的坐标选择
 4 支持控制非管理员不能打开代码页面
 5 折线图在最后显示一个数值
+
+
+
+记录零碎：
+1 添加 zhifu.css 和 zhifu.js
+2 修改 index.html 引用 zhifu.css 和 zhifu.js
+
+
+规则：
+1 将规则都加在 name 中：name-type-value1;value2;
+解释：
+name 用来显示
+type 表示类型，比如输入框通过这个字段来表明自己是一个时间选择框等
+value1;value2; ：用来传一些额外的参数
