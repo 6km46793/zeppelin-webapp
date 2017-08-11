@@ -19,7 +19,7 @@ describe('Search block e2e Test', function() {
   }
 
   beforeEach(function() {
-    browser.get('http://localhost:8080')
+    browser.get('http://192.168.0.140:8081')
     clickOn(element(by.linkText('Create new note')))
     waitVisibility(element(by.id('noteCreateModal')))
     clickAndWait(element(by.id('createNoteButton')))

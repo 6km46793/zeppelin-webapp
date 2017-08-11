@@ -1,6 +1,6 @@
 describe('Home e2e Test', function() {
   it('should have a welcome message', function() {
-    browser.get('http://localhost:8080');
+    browser.get('http://192.168.0.140:8081');
     var welcomeElem = element(by.id('welcome'))
 
     expect(welcomeElem.getText()).toEqual('Welcome to Zeppelin!')

@@ -41,7 +41,7 @@ $ WEB_PORT=YOUR_WEB_DEV_PORT yarn run dev
 # running unit tests
 $ yarn run test
 
-# running e2e tests: make sure that zeppelin instance started (localhost:8080)
+# running e2e tests: make sure that zeppelin instance started (192.168.0.140:8081)
 $ yarn run e2e
 ```
 

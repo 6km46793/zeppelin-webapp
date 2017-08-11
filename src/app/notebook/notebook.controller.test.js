@@ -13,7 +13,7 @@ describe('Controller: NotebookCtrl', function () {
 
   let baseUrlSrvMock = {
     getRestApiBase: function () {
-      return 'http://localhost:8080'
+      return 'http://192.168.0.140:8081'
     }
   }
 

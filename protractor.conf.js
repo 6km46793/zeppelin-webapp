@@ -1,5 +1,5 @@
 var baseConfig = {
-  baseUrl: 'http://localhost:8080/',
+  baseUrl: 'http://192.168.0.140:8081/',
   directConnect: true,
   capabilities: {
     browserName: 'chrome',
