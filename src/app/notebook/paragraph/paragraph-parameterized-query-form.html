@@ -18,6 +18,8 @@ limitations under the License.
        ng-repeat="formulaire in paragraph.settings.forms | toArray"
        ng-init="loadForm(formulaire, paragraph.settings.params)">
        <!-- 对导出的 json 文件中的 forms 列表进行循环 -->
+
+       <span>{{formulaire.name}}</span>
     <label class="control-label input-sm" ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }">{{formulaire.name}}</label>
     <div>
         <!-- textBox -->
