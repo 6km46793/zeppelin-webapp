@@ -12,156 +12,154 @@
  * limitations under the License.
  */
 
-angular.module('zeppelinWebApp').controller('NavCtrl', NavCtrl)
+angular.module('zeppelinWebApp').controller('NavCtrl', NavCtrl);
 
-function NavCtrl ($scope, $rootScope, $http, $routeParams, $location,
-                 noteListFactory, baseUrlSrv, websocketMsgSrv,
+NavCtrl.$inject = [
+  '$scope',
+  '$rootScope',
+  '$http',
+  '$routeParams',
+  '$location',
+  'noteListDataFactory',
+  'baseUrlSrv',
+  'websocketMsgSrv',
+  'arrayOrderingSrv',
+  'searchService',
+  'TRASH_FOLDER_ID'
+];
+
+function NavCtrl($scope, $rootScope, $http, $routeParams, $location,
+                 noteListDataFactory, baseUrlSrv, websocketMsgSrv,
                  arrayOrderingSrv, searchService, TRASH_FOLDER_ID) {
-  'ngInject'
+  var vm = this;
+  vm.arrayOrderingSrv = arrayOrderingSrv;
+  vm.connected = websocketMsgSrv.isConnected();
+  vm.isActive = isActive;
+  vm.logout = logout;
+  vm.notes = noteListDataFactory;
+  vm.search = search;
+  vm.searchForm = searchService;
+  vm.showLoginWindow = showLoginWindow;
+  vm.TRASH_FOLDER_ID = TRASH_FOLDER_ID;
+  vm.isFilterNote = isFilterNote;
 
-  let vm = this
-  vm.arrayOrderingSrv = arrayOrderingSrv
-  vm.connected = websocketMsgSrv.isConnected()
-  vm.isActive = isActive
-  vm.logout = logout
-  vm.notes = noteListFactory
-  vm.search = search
-  vm.searchForm = searchService
-  vm.showLoginWindow = showLoginWindow
-  vm.TRASH_FOLDER_ID = TRASH_FOLDER_ID
-  vm.isFilterNote = isFilterNote
+  $scope.query = {q: ''};
 
-  $scope.query = {q: ''}
+  initController();
 
-  initController()
-
-  function getZeppelinVersion () {
+  function getZeppelinVersion() {
     $http.get(baseUrlSrv.getRestApiBase() + '/version').success(
-      function (data, status, headers, config) {
-        $rootScope.zeppelinVersion = data.body.version
+      function(data, status, headers, config) {
+        $rootScope.zeppelinVersion = data.body;
       }).error(
-      function (data, status, headers, config) {
-        console.log('Error %o %o', status, data.message)
-      })
+      function(data, status, headers, config) {
+        console.log('Error %o %o', status, data.message);
+      });
   }
 
-  function initController () {
-    $scope.isDrawNavbarNoteList = false
-    angular.element('#notebook-list').perfectScrollbar({suppressScrollX: true})
+  function initController() {
+    $scope.isDrawNavbarNoteList = false;
+    angular.element('#notebook-list').perfectScrollbar({suppressScrollX: true});
 
-    angular.element(document).click(function () {
-      $scope.query.q = ''
-    })
+    angular.element(document).click(function() {
+      $scope.query.q = '';
+    });
 
-    getZeppelinVersion()
-    loadNotes()
+    getZeppelinVersion();
+    loadNotes();
   }
 
-  function isFilterNote (note) {
+  function isFilterNote(note) {
     if (!$scope.query.q) {
-      return true
+      return true;
     }
 
-    let noteName = note.name
+    var noteName = note.name;
     if (noteName.toLowerCase().indexOf($scope.query.q.toLowerCase()) > -1) {
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
-  function isActive (noteId) {
-    return ($routeParams.noteId === noteId)
+  function isActive(noteId) {
+    return ($routeParams.noteId === noteId);
   }
 
-  function listConfigurations () {
-    websocketMsgSrv.listConfigurations()
+  function listConfigurations() {
+    websocketMsgSrv.listConfigurations();
   }
 
-  function loadNotes () {
-    websocketMsgSrv.getNoteList()
+  function loadNotes() {
+    websocketMsgSrv.getNoteList();
   }
 
-  function getHomeNote () {
-    websocketMsgSrv.getHomeNote()
+  function getHomeNote(){
+    websocketMsgSrv.getHomeNote();
   }
 
-  function logout () {
-    let logoutURL = baseUrlSrv.getRestApiBase() + '/login/logout'
+  function logout() {
+    var logoutURL = baseUrlSrv.getRestApiBase() + '/login/logout';
 
-    // for firefox and safari
-    logoutURL = logoutURL.replace('//', '//false:false@')
-    $http.post(logoutURL).error(function () {
-      // force authcBasic (if configured) to logout
-      $http.post(logoutURL).error(function () {
-        $rootScope.userName = ''
-        $rootScope.ticket.principal = ''
-        $rootScope.ticket.screenUsername = ''
-        $rootScope.ticket.ticket = ''
-        $rootScope.ticket.roles = ''
+    //for firefox and safari
+    logoutURL = logoutURL.replace('//', '//false:false@');
+    $http.post(logoutURL).error(function() {
+      //force authcBasic (if configured) to logout
+      $http.post(logoutURL).error(function() {
+        $rootScope.userName = '';
+        $rootScope.ticket.principal = '';
+        $rootScope.ticket.ticket = '';
+        $rootScope.ticket.roles = '';
         BootstrapDialog.show({
           message: 'Logout Success'
-        })
-        setTimeout(function () {
-          window.location = baseUrlSrv.getBase()
-        }, 1000)
-      })
-    })
+        });
+        setTimeout(function() {
+          window.location.replace('/');
+        }, 1000);
+      });
+    });
   }
 
-  function search (searchTerm) {
-    $location.path('/search/' + searchTerm)
+  function search(searchTerm) {
+    $location.path('/search/' + searchTerm);
   }
 
-  function showLoginWindow () {
-    setTimeout(function () {
-      angular.element('#userName').focus()
-    }, 500)
+  function showLoginWindow() {
+    setTimeout(function() {
+      angular.element('#userName').focus();
+    }, 500);
   }
 
   /*
    ** $scope.$on functions below
    */
 
-  $scope.$on('setNoteMenu', function (event, notes) {
-    noteListFactory.setNotes(notes)
-    initNotebookListEventListener()
-  })
+  $scope.$on('setNoteMenu', function(event, notes) {
+    noteListDataFactory.setNotes(notes);
+    initNotebookListEventListener();
+  });
 
-  $scope.$on('setConnectedStatus', function (event, param) {
-    vm.connected = param
-  })
+  $scope.$on('setConnectedStatus', function(event, param) {
+    vm.connected = param;
+  });
 
-  $scope.$on('loginSuccess', function (event, param) {
-    $rootScope.ticket.screenUsername = $rootScope.ticket.principal
-    listConfigurations()
-    loadNotes()
-    getHomeNote()
-  })
+  $scope.$on('loginSuccess', function(event, param) {
+    listConfigurations();
+    loadNotes();
+    getHomeNote();
+  });
 
   /*
    ** Performance optimization for Browser Render.
    */
-  function initNotebookListEventListener () {
-    angular.element(document).ready(function () {
-      angular.element('.notebook-list-dropdown').on('show.bs.dropdown', function () {
-        $scope.isDrawNavbarNoteList = true
-      })
+  function initNotebookListEventListener() {
+    angular.element(document).ready(function() {
+      angular.element('.notebook-list-dropdown').on('show.bs.dropdown', function() {
+        $scope.isDrawNavbarNoteList = true;
+      });
 
-      angular.element('.notebook-list-dropdown').on('hide.bs.dropdown', function () {
-        $scope.isDrawNavbarNoteList = false
-      })
-    })
-  }
-
-  $scope.calculateTooltipPlacement = function (note) {
-    if (note !== undefined && note.name !== undefined) {
-      let length = note.name.length
-      if (length < 2) {
-        return 'top-left'
-      } else if (length > 7) {
-        return 'top-right'
-      }
-    }
-    return 'top'
+      angular.element('.notebook-list-dropdown').on('hide.bs.dropdown', function() {
+        $scope.isDrawNavbarNoteList = false;
+      });
+    });
   }
 }

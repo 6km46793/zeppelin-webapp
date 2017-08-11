@@ -15,16 +15,7 @@
  * limitations under the License.
  */
 
-import 'headroom.js'
-import 'headroom.js/dist/angular.headroom'
-
-import 'scrollmonitor/scrollMonitor.js'
-import 'angular-viewport-watch/angular-viewport-watch.js'
-
-import 'angular-ui-grid/ui-grid.css'
-import 'angular-ui-grid'
-
-const requiredModules = [
+var zeppelinWebApp = angular.module('zeppelinWebApp', [
   'ngCookies',
   'ngAnimate',
   'ngRoute',
@@ -42,43 +33,24 @@ const requiredModules = [
   'ngToast',
   'focus-if',
   'ngResource',
-  'ngclipboard',
-  'angularViewportWatch',
-  'ui.grid',
-  'ui.grid.exporter',
-  'ui.grid.edit', 'ui.grid.rowEdit',
-  'ui.grid.selection',
-  'ui.grid.cellNav', 'ui.grid.pinning',
-  'ui.grid.grouping',
-  'ui.grid.emptyBaseLayer',
-  'ui.grid.resizeColumns',
-  'ui.grid.moveColumns',
-  'ui.grid.pagination',
-  'ui.grid.saveState',
-]
-
-// headroom should not be used for CI, since we have to execute some integration tests.
-// otherwise, they will fail.
-if (!process.env.BUILD_CI) { requiredModules.push('headroom') }
-
-let zeppelinWebApp = angular.module('zeppelinWebApp', requiredModules)
-  .filter('breakFilter', function () {
-    return function (text) {
-      // eslint-disable-next-line no-extra-boolean-cast
+  'ngclipboard'
+])
+  .filter('breakFilter', function() {
+    return function(text) {
       if (!!text) {
-        return text.replace(/\n/g, '<br />')
+        return text.replace(/\n/g, '<br />');
       }
-    }
+    };
   })
-  .config(function ($httpProvider, $routeProvider, ngToastProvider) {
+  .config(function($httpProvider, $routeProvider, ngToastProvider) {
     // withCredentials when running locally via grunt
-    $httpProvider.defaults.withCredentials = true
+    $httpProvider.defaults.withCredentials = true;
 
-    let visBundleLoad = {
-      load: ['heliumService', function (heliumService) {
-        return heliumService.load
+    var visBundleLoad = {
+      load: ['heliumService', function(heliumService) {
+        return heliumService.load;
       }]
-    }
+    };
 
     $routeProvider
       .when('/', {
@@ -106,15 +78,15 @@ let zeppelinWebApp = angular.module('zeppelinWebApp', requiredModules)
       })
       .when('/jobmanager', {
         templateUrl: 'app/jobmanager/jobmanager.html',
-        controller: 'JobManagerCtrl'
+        controller: 'JobmanagerCtrl'
       })
       .when('/interpreter', {
         templateUrl: 'app/interpreter/interpreter.html',
         controller: 'InterpreterCtrl'
       })
       .when('/notebookRepos', {
-        templateUrl: 'app/notebook-repository/notebook-repository.html',
-        controller: 'NotebookRepositoryCtrl',
+        templateUrl: 'app/notebookRepos/notebookRepos.html',
+        controller: 'NotebookReposCtrl',
         controllerAs: 'noterepo'
       })
       .when('/credential', {
@@ -135,83 +107,83 @@ let zeppelinWebApp = angular.module('zeppelinWebApp', requiredModules)
       })
       .otherwise({
         redirectTo: '/'
-      })
+      });
 
     ngToastProvider.configure({
       dismissButton: true,
       dismissOnClick: false,
       combineDuplications: true,
       timeout: 6000
-    })
+    });
   })
 
-  // handel logout on API failure
-    .config(function ($httpProvider, $provide) {
-      if (process.env.PROD) {
-        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-      }
-      $provide.factory('httpInterceptor', function ($q, $rootScope) {
-        return {
-          'responseError': function (rejection) {
-            if (rejection.status === 405) {
-              let data = {}
-              data.info = ''
-              $rootScope.$broadcast('session_logout', data)
-            }
-            $rootScope.$broadcast('httpResponseError', rejection)
-            return $q.reject(rejection)
+  //handel logout on API failure
+  .config(function ($httpProvider, $provide) {
+    $provide.factory('httpInterceptor', function ($q, $rootScope) {
+      return {
+        'responseError': function (rejection) {
+          if (rejection.status === 405) {
+            var data = {};
+            data.info = '';
+            $rootScope.$broadcast('session_logout', data);
           }
+          $rootScope.$broadcast('httpResponseError', rejection);
+          return $q.reject(rejection);
         }
-      })
-      $httpProvider.interceptors.push('httpInterceptor')
-    })
-  .constant('TRASH_FOLDER_ID', '~Trash')
+      };
+    });
+    $httpProvider.interceptors.push('httpInterceptor');
+  })
+  .constant('TRASH_FOLDER_ID', '~Trash');
 
-function auth () {
-  let $http = angular.injector(['ng']).get('$http')
-  let baseUrlSrv = angular.injector(['zeppelinWebApp']).get('baseUrlSrv')
+function auth() {
+  var $http = angular.injector(['ng']).get('$http');
+  var baseUrlSrv = angular.injector(['zeppelinWebApp']).get('baseUrlSrv');
   // withCredentials when running locally via grunt
-  $http.defaults.withCredentials = true
+  $http.defaults.withCredentials = true;
   jQuery.ajaxSetup({
     dataType: 'json',
     xhrFields: {
       withCredentials: true
     },
     crossDomain: true
-  })
-  let config = (process.env.PROD) ? {headers: { 'X-Requested-With': 'XMLHttpRequest' }} : {}
-  return $http.get(baseUrlSrv.getRestApiBase() + '/security/ticket', config).then(function (response) {
-    zeppelinWebApp.run(function ($rootScope) {
-      $rootScope.ticket = angular.fromJson(response.data).body
-
-      $rootScope.ticket.screenUsername = $rootScope.ticket.principal
-      if ($rootScope.ticket.principal.startsWith('#Pac4j')) {
-        let re = ', name=(.*?),'
-        $rootScope.ticket.screenUsername = $rootScope.ticket.principal.match(re)[1]
-      }
-    })
-  }, function (errorResponse) {
+  });
+  return $http.get(baseUrlSrv.getRestApiBase() + '/security/ticket').then(function(response) {
+    zeppelinWebApp.run(function($rootScope) {
+      $rootScope.ticket = angular.fromJson(response.data).body;
+    });
+  }, function(errorResponse) {
     // Handle error case
-    let redirect = errorResponse.headers('Location')
-    if (errorResponse.status === 401 && redirect !== undefined) {
-      // Handle page redirect
-      window.location.href = redirect
-    }
-  })
+  });
 }
 
-function bootstrapApplication () {
-  zeppelinWebApp.run(function ($rootScope, $location) {
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      $rootScope.pageTitle = 'Zeppelin'
+function bootstrapApplication() {
+  zeppelinWebApp.run(function($rootScope, $location) {
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
       if (!$rootScope.ticket && next.$$route && !next.$$route.publicAccess) {
-        $location.path('/')
+        $location.path('/');
       }
-    })
-  })
-  angular.bootstrap(document, ['zeppelinWebApp'])
+    });
+  });
+  angular.bootstrap(document, ['zeppelinWebApp']);
 }
 
 angular.element(document).ready(function () {
   auth().then(bootstrapApplication)
 })
+
+// See ZEPPELIN-2577. No graphs visible on IE 11
+// Polyfill. https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
+if (!String.prototype.endsWith) {
+  // eslint-disable-next-line no-extend-native
+  String.prototype.endsWith = function(searchString, position) {
+    let subjectString = this.toString()
+    if (typeof position !== 'number' || !isFinite(position) ||
+        Math.floor(position) !== position || position > subjectString.length) {
+      position = subjectString.length
+    }
+    position -= searchString.length
+    let lastIndex = subjectString.indexOf(searchString, position)
+    return lastIndex !== -1 && lastIndex === position
+  }
+}

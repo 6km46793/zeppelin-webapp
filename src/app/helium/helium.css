@@ -12,13 +12,19 @@
  * limitations under the License.
  */
 
-.heliumHead {
-  padding-bottom: 34px !important;
-}
-
 .heliumPackageContainer {
   padding-bottom: 0px;
   margin-bottom: 0px;
+}
+
+.heliumLearnMore {
+  margin-top:10px;
+}
+
+.heliumLearnMore a {
+  cursor:pointer;
+  margin-right:20px;
+  text-decoration:none;
 }
 
 .heliumPackageList {
@@ -55,37 +61,11 @@
   margin-top: 0;
 }
 
-.heliumPackageList .heliumPackageName .heliumType {
-  font-size: 13px;
+.heliumPackageList .heliumPackageName span {
+  font-size: 10px;
   color: #AAAAAA;
 }
 
-.spellInfo {
-  margin-top: 15px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.spellInfo .spellInfoDesc {
-  font-size: 13px;
-  color: #AAAAAA;
-}
-
-.spellInfo .spellInfoValue {
-  font-size: 13px;
-  font-style: italic;
-  color: #444444;
-}
-
-.spellInfo .spellUsage {
-  margin-top: 8px;
-  margin-bottom: 4px;
-  width: 500px;
-}
-
-.spellConfigButton {
-  background-color: #FEFEFE;
-}
 
 .heliumPackageList .heliumPackageDisabledArtifact {
   color:gray;
@@ -107,18 +87,14 @@
   margin-top: 10px;
 }
 
-.heliumBundleOrder {
+.heliumVisualizationOrder {
   display: inline-block;
 }
 
-.heliumBundleOrder .as-sortable-item,
-.heliumBundleOrder .as-sortable-placeholder {
+.heliumVisualizationOrder .as-sortable-item,
+.heliumVisualizationOrder .as-sortable-placeholder {
   display: inline-block;
   float: left;
-}
-
-.heliumBundleOrder p {
-  margin:0 0 5px 15px
 }
 
 .sortable-row .as-sortable-item-handle {
@@ -131,7 +107,7 @@
   height: 100%;
 }
 
-.heliumBundleOrder .saveLink {
+.heliumVisualizationOrder .saveLink {
   margin-left:10px;
   margin-top:5px;
   cursor:pointer;
@@ -140,88 +116,24 @@
   display: inline-block;
 }
 
+.heliumVisualizationOrder p {
+  margin:0 0 5px 15px;
+}
+
+.gray40-message a:before {
+  content: "\00a0";
+}
+
+.gray40-message a:hover {
+  text-decoration: none;
+}
+
+.gray40-message a:focus {
+  text-decoration: none;
+}
+
 .heliumVisIconButton > img {
   display: block;
   max-width: 100%;
   height: auto;
-}
-
-.heliumLocalPackage {
-  color: #636363;
-}
-
-.heliumLearnMore {
-  margin-top:10px;
-}
-
-.heliumLearnMore a {
-  cursor:pointer;
-  margin-right:10px;
-  text-decoration:none;
-}
-
-.heliumRepoBtn {
-  margin-right: 8px;
-}
-
-.heliumRepoBtn:hover, .heliumRepoBtn:focus {
-  margin-right: 8px;
-  outline: 0;
-}
-
-.heliumRepoBtnToggled {
-  color: #333;
-  background-color: #e6e6e6;
-  border-color:#adadad;
-}
-
-.localPkgInfo {
-  margin-right: 0;
-}
-
-.localPkgInfo p {
-  margin: 10px 12px 0 0;
-  font-size: 11px;
-  font-style: italic;
-  color: #aaaaaa;
-  text-align: right;
-}
-
-.heliumConfig {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
-.heliumConfigTable {
-  margin-top: 15px;
-  vertical-align:middle;
-  margin-bottom: 15px;
-}
-
-.heliumConfigValueText {
-  vertical-align: top;
-}
-
-
-/* hide arrows when current page is on first & last */
-.hide-first-boundaries.pagination > .disabled > a,
-.hide-first-boundaries.pagination > li:first-child > a,
-.hide-first-boundaries.pagination > li:first-child > span {
-  display: none;
-}
-
-.hide-first-boundaries.pagination > .active > a {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-.hide-last-boundaries.pagination > .disabled > a,
-.hide-last-boundaries.pagination > li:last-child > a,
-.hide-last-boundaries.pagination > li:last-child > span {
-  display: none;
-}
-
-.hide-last-boundaries.pagination > .active > a {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
 }

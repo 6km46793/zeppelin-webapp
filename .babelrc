@@ -1,13 +1,5 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "debug": true,
-        "targets": {
-          "browsers": ["last 5 version", "> 5%", "edge >= 12", "ie >= 9", "safari 7", "chrome 47", "firefox 31"]
-        }
-      }
-    ]
-  ]
+
+  "plugins": ["transform-object-rest-spread"],
+  "presets": ["es2015"]
 }

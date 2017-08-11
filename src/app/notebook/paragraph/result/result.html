@@ -15,19 +15,17 @@ limitations under the License.
 <div>
   <div ng-include src="'app/notebook/paragraph/result/result-chart-selector.html'"></div>
   <div
-    ng-mouseout="onMouseOut()"
-    ng-mouseover="onMouseOver()"
     id="p{{id}}_resize"
     ng-if="!config.helium.activeApp"
     style="padding-bottom: 5px;"
     resize='{"allowresize": "{{!asIframe && !viewOnly}}", "graphType": "{{type}}"}'
-    resizable on-resize="resize(width, height);">
+       resizable on-resize="resize(width, height);">
 
-    <div ng-if="type=='TABLE' || type == 'NETWORK'"
-         ng-style="getPointerEvent()">
-      <!-- setting -->
+    <div ng-if="type=='TABLE'">
+      <!-- graph setting -->
       <div class="option lightBold" style="overflow: visible;"
-           ng-show="config.graph.optionOpen && !asIframe && !viewOnly">
+           ng-show="graphMode!='table'
+                    && config.graph.optionOpen && !asIframe && !viewOnly">
         <div ng-repeat="viz in builtInTableDataVisualizationList track by $index"
              id="trsetting{{id}}_{{viz.id}}"
              ng-show="graphMode == viz.id"></div>
@@ -36,40 +34,15 @@ limitations under the License.
              ng-show="graphMode == viz.id"></div>
       </div>
 
-      <div id="p{{id}}_network_header"
-           ng-if="type == 'NETWORK' && graphMode == 'network' && networkNodes != null">
-         <ul class="list-inline">
-           <li>Nodes <span class="badge">{{networkNodes.count}}</span>:</li>
-           <li ng-repeat="(labelName, labelColor) in networkNodes.labels" style="padding: 0">
-             <span style="background-color: {{labelColor}} !important;" class="label label-default network-badge">
-               {{labelName}}
-             </span>
-           </li>
-         </ul>
-         <ul class="list-inline">
-           <li ng-if="networkRelationships != null">Relationships <span class="badge">{{networkRelationships.count}}</span>:</li>
-           <li ng-repeat="type in networkRelationships.types" style="padding: 0">
-             <span class="label label-default network-badge">
-               {{type}}
-             </span>
-           </li>
-         </ul>
-      </div>
-
       <!-- graph -->
       <div id="p{{id}}_graph"
            class="graphContainer"
-           ng-class="{'noOverflow': graphMode=='table'}">
+           ng-class="{'noOverflow': graphMode=='table'}"
+           >
         <div ng-repeat="viz in builtInTableDataVisualizationList track by $index"
              id="p{{id}}_{{viz.id}}"
              ng-show="graphMode == viz.id">
         </div>
-      </div>
-
-      <div id="p{{id}}_network_footer"
-           ng-if="type == 'NETWORK' && graphMode == 'network'">
-        <ul class="list-inline">
-        </ul>
       </div>
 
       <div id="{{id}}_comment"
@@ -80,8 +53,7 @@ limitations under the License.
     </div>
 
     <div ng-if="type == 'TEXT'"
-         class="plainTextContainer"
-         ng-style="getPointerEvent()">
+         class="plainTextContainer">
       <div class="fa fa-level-down scroll-paragraph-down"
            ng-show="showScrollDownIcon()"
            ng-click="scrollParagraphDown()"
@@ -95,40 +67,24 @@ limitations under the License.
            uib-tooltip="Scroll Top"></div>
     </div>
 
-    <div id="p{{id}}_custom"
-         class="resultContained"
-         ng-if="!isDefaultDisplay()"
-         ng-style="getPointerEvent()">
-    </div>
-
-    <div id="p{{id}}_elem"
-         class="resultContained"
-         ng-if="type == 'ELEMENT'"
-         ng-style="getPointerEvent()">
-    </div>
-
     <div id="p{{id}}_html"
          class="resultContained"
-         ng-if="type == 'HTML'"
-         ng-style="getPointerEvent()">
+         ng-if="type == 'HTML'">
     </div>
 
     <div id="p{{id}}_angular"
          class="resultContained"
-         ng-if="type == 'ANGULAR'"
-         ng-style="getPointerEvent()">
+         ng-if="type == 'ANGULAR'">
     </div>
 
     <img id="{{id}}_img"
          ng-if="type == 'IMG'"
-         ng-src="{{getBase64ImageSrc(result.data)}}"
-         ng-style="getPointerEvent()" />
+         ng-src="{{getBase64ImageSrc(result.data)}}" />
   </div>
 
   <div ng-repeat="app in apps">
     <div id="p{{app.id}}"
-         ng-show="config.helium.activeApp == app.id"
-         ng-style="getPointerEvent()">
+         ng-show="config.helium.activeApp == app.id">
     </div>
   </div>
 </div>

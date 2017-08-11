@@ -28,8 +28,6 @@ var InsertLiveReloadPlugin = function InsertLiveReloadPlugin(options) {
   this.port = this.options.port || 35729;
   this.hostname = this.options.hostname || 'localhost';
 }
-var express = require('express');
-var stringReplacePlugin = require('string-replace-webpack-plugin');
 
 InsertLiveReloadPlugin.prototype.autoloadJs = function autoloadJs() {
   return
@@ -68,8 +66,7 @@ InsertLiveReloadPlugin.prototype.apply = function apply(compiler) {
  */
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test';
-var isProd = ENV.startsWith('build')
-var isCI = ENV === 'build:ci'
+var isProd = ENV === 'build';
 
 module.exports = function makeWebpackConfig () {
   /**
@@ -89,8 +86,11 @@ module.exports = function makeWebpackConfig () {
     app: './src/index.js'
   };
 
-  var serverPort = process.env.SERVER_PORT || 8080;
-  var webPort = process.env.WEB_PORT || 9000;
+  var serverPort = 8080;
+
+  if(process.env.SERVER_PORT) {
+    serverPort = process.env.SERVER_PORT;
+  }
 
   /**
    * Output
@@ -104,7 +104,7 @@ module.exports = function makeWebpackConfig () {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: isProd ? '' : 'http://localhost:' + webPort + '/',
+    publicPath: isProd ? '' : 'http://localhost:9000/',
 
     // Filename for entry points
     // Only adds hash in build mode
@@ -140,11 +140,6 @@ module.exports = function makeWebpackConfig () {
   config.module = {
     preLoaders: [],
     loaders: [{
-      // headroom 0.9.3 doesn't work with webpack
-      // https://github.com/WickyNilliams/headroom.js/issues/213#issuecomment-281106943
-      test: require.resolve('headroom.js'),
-      loader: 'imports-loader?this=>window,define=>false,exports=>false'
-    }, {
       // JS LOADER
       // Reference: https://github.com/babel/babel-loader
       // Transpile .js files using babel-loader
@@ -165,7 +160,7 @@ module.exports = function makeWebpackConfig () {
       //
       // Reference: https://github.com/webpack/style-loader
       // Use style-loader in development.
-      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
+      loader: isTest ? 'null' : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
     }, {
       // ASSET LOADER
       // Reference: https://github.com/webpack/file-loader
@@ -181,29 +176,7 @@ module.exports = function makeWebpackConfig () {
       // Allow loading html through js
       test: /\.html$/,
       loader: 'raw'
-    }, {
-      // STRING REPLACE PLUGIN
-      // reference: https://www.npmjs.com/package/string-replace-webpack-plugin
-      // Allow for arbitrary strings to be replaced as part of the module build process
-      // Configure replacements for file patterns
-      test: /index.html$/,
-      loader: stringReplacePlugin.replace({
-        replacements: [{
-          pattern: /WEB_PORT/ig,
-          replacement: function (match, p1, offset, string) {
-            return webPort;
-          }
-        }
-      ]})
-    }],
-    postLoaders: [
-      {
-        // COVERAGE
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components|\.test\.js)/,
-        loader: 'istanbul-instrumenter'
-      }
-    ]
+    }]
   };
 
   /**
@@ -223,10 +196,6 @@ module.exports = function makeWebpackConfig () {
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
   config.plugins = [
-      // Reference: https://github.com/webpack/extract-text-webpack-plugin
-      // Extract css files
-      // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin('[name].[hash].css', {disable: !isProd}),
   ];
 
   // Skip rendering index.html in test mode
@@ -238,14 +207,17 @@ module.exports = function makeWebpackConfig () {
         template: './src/index.html',
         inject: 'body'
       }),
+
+      // Reference: https://github.com/webpack/extract-text-webpack-plugin
+      // Extract css files
+      // Disabled when in test mode or not in build mode
+      new ExtractTextPlugin('[name].[hash].css', {disable: !isProd}),
+
       // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
       new webpack.DefinePlugin({
         'process.env': {
-          HELIUM_BUNDLE_DEV: process.env.HELIUM_BUNDLE_DEV,
-          SERVER_PORT: serverPort,
-          WEB_PORT: webPort,
-          PROD: isProd,
-          BUILD_CI: (isCI) ? JSON.stringify(true) : JSON.stringify(false)
+          HELIUM_VIS_DEV: process.env.HELIUM_VIS_DEV,
+          SERVER_PORT: serverPort
         }
       })
     )
@@ -286,11 +258,7 @@ module.exports = function makeWebpackConfig () {
       new CopyWebpackPlugin([])
     )
   } else {
-    config.plugins.push(
-      new InsertLiveReloadPlugin(),
-      // reference: https://www.npmjs.com/package/string-replace-webpack-plugin
-      new stringReplacePlugin()
-    )
+      config.plugins.push(new InsertLiveReloadPlugin())
   }
 
   /**
@@ -300,17 +268,15 @@ module.exports = function makeWebpackConfig () {
    */
   config.devServer = {
     historyApiFallback: true,
-    port: webPort,
+    port: 9000,
     inline: true,
     hot: true,
     progress: true,
     contentBase: './src',
     setup: function(app) {
-      app.use('**/bower_components/', express.static(path.resolve(__dirname, './bower_components/')));
-      app.use('**/app/', express.static(path.resolve(__dirname, './src/app/')));
-      app.use('**/assets/', express.static(path.resolve(__dirname, './src/assets/')));
-      app.use('**/fonts/', express.static(path.resolve(__dirname, './src/fonts/')));
-      app.use('**/components/', express.static(path.resolve(__dirname, './src/components/')));
+      app.use(
+        '/bower_components/',
+        require('express').static(path.join(__dirname, './bower_components/')));
     },
     stats: 'minimal',
   };
