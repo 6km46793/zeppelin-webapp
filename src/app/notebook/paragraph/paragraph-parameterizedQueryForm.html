@@ -8,17 +8,30 @@
 
         <!-- input：添加时间选择器、时间段选择器 -->
         <div ng-if="!paragraph.settings.forms[formulaire.name].options">
-            <div class="dropdown">
-                <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
-                    <div class="input-group">
-                        <input type="text" class="form-control datetimepicker-padding" data-ng-model="paragraph.settings.params[formulaire.name]">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
-                </ul>
+            <!-- 原始 -->
+            <div ng-if="getMessage(formulaire.name, 'params_length') == 1">
+                <input type="text" class="form-control datetimepicker-padding" data-ng-model="paragraph.settings.params[formulaire.name]">
             </div>
+
+            <!-- datetime -->
+            <div ng-if="getMessage(formulaire.name, 'type') == 'datetime'">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
+                        <div class="input-group">
+                            <!-- <input type="text" class="form-control datetimepicker-padding" data-ng-model="paragraph.settings.params[formulaire.name]"> -->
+                            <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'yyyy-MM-dd a'}}</span>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
+                    </ul>
+                </div>
+            </div>
+
+            <!-- date -->
+            <!-- <div class="getMessage(formulaire.name, 'type') == 'date'">
+            </div> -->
         </div>
 
         <!-- select -->

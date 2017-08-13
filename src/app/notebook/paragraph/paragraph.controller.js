@@ -22,6 +22,12 @@ zeppelinWebApp.filter('ZhifuCtrl', function() { //可以注入依赖
     }
 });
 
+zeppelinWebApp.filter('datetimeFilter', function() { //可以注入依赖
+    return function(msg) {
+        return 'zhifu';
+    }
+});
+
 zeppelinWebApp.controller('ParagraphCtrl', ParagraphCtrl);
 
 
