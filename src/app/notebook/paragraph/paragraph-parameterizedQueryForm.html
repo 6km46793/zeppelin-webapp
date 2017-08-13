@@ -18,8 +18,7 @@
                 <div class="dropdown">
                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
                         <div class="input-group">
-                            <!-- <input type="text" class="form-control datetimepicker-padding" data-ng-model="paragraph.settings.params[formulaire.name]"> -->
-                            <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'yyyy-MM-dd a'}}</span>
+                            <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'yyyy-MM-dd HH:mm'}}</span>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
@@ -30,8 +29,20 @@
             </div>
 
             <!-- date -->
-            <!-- <div class="getMessage(formulaire.name, 'type') == 'date'">
-            </div> -->
+            <div ng-if="getMessage(formulaire.name, 'type') == 'date'">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
+                        <div class="input-group">
+                            <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'yyyy-MM-dd'}}</span>
+                            <!-- <input type="text" class="form-control datetimepicker-padding" data-ng-model="paragraph.settings.params[formulaire.name]"> -->
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#dropdown', startView:'day', minView:'day' }" />
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- select -->

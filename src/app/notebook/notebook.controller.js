@@ -39,6 +39,7 @@ function NotebookCtrl($scope, $route, $routeParams, $location, $rootScope,
 
   $scope.note = null;
   $scope.moment = moment;
+  $scope.moment.locale('zh-cn');
   $scope.editorToggled = false;
   $scope.tableToggled = false;
   $scope.viewOnly = false;
