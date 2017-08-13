@@ -323,3 +323,12 @@
   pointer-events: none;
 }
 
+
+/*自定义样式*/
+.dropdown-select-button {
+    width: 100%;
+}
+.dropdown-item-label {
+    width: 100%;
+    padding-left: 10px!important;
+}
