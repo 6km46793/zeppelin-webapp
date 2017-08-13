@@ -88,6 +88,8 @@ module.exports = function(config) {
       'bower_components/clipboard/dist/clipboard.js',
       'bower_components/ngclipboard/dist/ngclipboard.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/angular-bootstrap-datetimepicker-github/src/js/datetimepicker.js',
+      'bower_components/angular-bootstrap-datetimepicker-github/src/js/datetimepicker.templates.js',
       // endbower
 
       'src/index.js',
