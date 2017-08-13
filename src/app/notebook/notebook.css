@@ -335,4 +335,5 @@
 .datetimepicker-padding {
     padding: 4px 12px!important;
     height: auto!important;
+    min-height: 30px;
 }
