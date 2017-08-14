@@ -1,5 +1,5 @@
 <form id="{{paragraph.id}}_form" role="form" ng-show="!paragraph.config.tableHide" class=" paragraphForm form-horizontal row">
-    <div class="form-group col-sm-6 col-md-6 col-lg-4" ng-repeat="formulaire in paragraph.settings.forms | toArray" ng-init="loadForm(formulaire, paragraph.settings.params)">
+    <div class="form-group col-sm-6 col-md-6 col-lg-zhifu-7" ng-repeat="formulaire in paragraph.settings.forms | toArray" ng-init="loadForm(formulaire, paragraph.settings.params)">
 
         <!-- <h3>{{formulaire.name | ZhifuCtrl}}</h3>
     <h2>{{getMessage(formulaire.name, 'name')}}</h2> -->
@@ -99,8 +99,8 @@
             <div ng-if="getMessage(formulaire.name, 'type') == 'dropdown'">
                 <div ng-if="paragraph.config.runOnSelectionChange == true">
                     <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle dropdown-select-button" id="{{getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret"></span></button>
-                        <ul class="dropdown-menu" aria-labelledby="{{getMessage(formulaire.name, 'name')}}">
+                        <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="{{getMessage(formulaire.name, 'name')}}">
                             <li>
                                 <label ng-repeat="option in paragraph.settings.forms[formulaire.name].options" class="checkbox-item input-sm dropdown-item-label">
                           <input type="checkbox"
@@ -114,8 +114,8 @@
                 </div>
                 <div ng-if="paragraph.config.runOnSelectionChange == false">
                     <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle dropdown-select-button" id="{{getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret"></span></button>
-                        <ul class="dropdown-menu" aria-labelledby="{{getMessage(formulaire.name, 'name')}}">
+                        <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="{{getMessage(formulaire.name, 'name')}}">
                             <li>
                                 <label ng-repeat="option in paragraph.settings.forms[formulaire.name].options" class="checkbox-item input-sm">
                             <input type="checkbox"

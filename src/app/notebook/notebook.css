@@ -337,3 +337,21 @@
     height: auto!important;
     min-height: 30px;
 }
+.dropdown-menu-ul {
+    width: 100%;
+}
+.dropdown-menu-ul li {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+.col-lg-zhifu-7 {
+    width: 16.6666666%;
+}
+.dropdown-caret {
+    position: absolute;
+    right: 5px;
+    top: 15px;
+}
+.dropdown-select-button.datetimepicker-padding {
+    text-align: left;
+}
