@@ -290,7 +290,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
         if (nameListLen > 2) {
             paramobj.options = nameList[2]
         }
-        if (type == 'params_length') {
+        if (type === 'params_length') {
             return nameList.length;
         }
         return paramobj[type] || name;
@@ -509,13 +509,13 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
     $scope.toggleCheckbox = function(formulaire, option) {
         // console.log(formulaire)
         // console.log(option)
-        var name = $scope.getMessage(formulaire.name, 'name')
-        var type = $scope.getMessage(formulaire.name, 'type')
+        // var name = $scope.getMessage(formulaire.name, 'name')
+        // var type = $scope.getMessage(formulaire.name, 'type')
 
         // 已选项中是否包含当前值，如果包含，就移除掉，如果不包含，那么添加进来
         var idx = $scope.paragraph.settings.params[formulaire.name].indexOf(option.value);
         var currentLength = $scope.paragraph.settings.params[formulaire.name].length;
-        if (option.value == 'all') {
+        if (option.value === 'all') {
             // 全选
             if (idx > -1) {
                 $scope.paragraph.settings.params[formulaire.name] = [];
@@ -529,15 +529,15 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
             if (idx > -1) {
                 // 包含:当前长度等于总长度，全选划出
                 $scope.paragraph.settings.params[formulaire.name].splice(idx, 1);
-                if (currentLength == formulaire.options.length) {
+                if (currentLength === formulaire.options.length) {
                     var allIndex = $scope.paragraph.settings.params[formulaire.name].indexOf('all');
-                    if (allIndex != - 1) {
+                    if (allIndex !== - 1) {
                         $scope.paragraph.settings.params[formulaire.name].splice(allIndex, 1);
                     }
                 }
             } else {
                 $scope.paragraph.settings.params[formulaire.name].push(option.value);
-                if (currentLength == formulaire.options.length - 2) {
+                if (currentLength === formulaire.options.length - 2) {
                     $scope.paragraph.settings.params[formulaire.name].push('all');
                 }
             }
@@ -649,7 +649,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
             // autocomplete on '.'
             /*
              $scope.editor.commands.on("afterExec", function(e, t) {
-             if (e.command.name == "insertstring" && e.args == "." ) {
+             if (e.command.name === "insertstring" && e.args === "." ) {
              var all = e.editor.completers;
              //e.editor.completers = [remoteCompleter];
              e.editor.execCommand("startAutocomplete");
