@@ -23,7 +23,7 @@
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name }" />
+                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name, startView:'day', minView:'minute', minuteStep:1 }" />
                     </ul>
                 </div>
             </div>
@@ -34,12 +34,26 @@
                     <a class="dropdown-toggle" id="{{formulaire.name}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
                         <div class="input-group">
                             <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'yyyy-MM-dd'}}</span>
-                            <!-- <input type="text" class="form-control datetimepicker-padding" data-ng-model="paragraph.settings.params[formulaire.name]"> -->
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name, startView:'day', minView:'day' }" />
+                    </ul>
+                </div>
+            </div>
+
+            <!-- time -->
+            <div ng-if="getMessage(formulaire.name, 'type') == 'time'">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" id="{{formulaire.name}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
+                        <div class="input-group">
+                            <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'HH:mm'}}</span>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name, startView:'hour', minView:'minute', minuteStep:1 }" />
                     </ul>
                 </div>
             </div>
