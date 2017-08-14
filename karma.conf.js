@@ -81,6 +81,8 @@ module.exports = function(config) {
       'bower_components/zeroclipboard/dist/ZeroClipboard.js',
       'bower_components/moment/moment.js',
       'bower_components/moment/locale/zh-cn.js',
+      'bower_components/angular-bootstrap-datetimepicker-github/src/js/datetimepicker.js',
+      'bower_components/angular-bootstrap-datetimepicker-github/src/js/datetimepicker.templates.js',
       'bower_components/pikaday/pikaday.js',
       'bower_components/handsontable/dist/handsontable.js',
       'bower_components/moment-duration-format/lib/moment-duration-format.js',
@@ -89,8 +91,6 @@ module.exports = function(config) {
       'bower_components/clipboard/dist/clipboard.js',
       'bower_components/ngclipboard/dist/ngclipboard.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/angular-bootstrap-datetimepicker-github/src/js/datetimepicker.js',
-      'bower_components/angular-bootstrap-datetimepicker-github/src/js/datetimepicker.templates.js',
       // endbower
 
       'src/index.js',
