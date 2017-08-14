@@ -33,7 +33,8 @@ var zeppelinWebApp = angular.module('zeppelinWebApp', [
   'ngToast',
   'focus-if',
   'ngResource',
-  'ngclipboard'
+  'ngclipboard',
+  'ui.bootstrap.datetimepicker'
 ])
   .filter('breakFilter', function() {
     return function(text) {
