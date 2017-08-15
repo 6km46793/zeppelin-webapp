@@ -521,7 +521,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
                 $scope.paragraph.settings.params[formulaire.name] = [];
             } else {
                 $scope.paragraph.settings.params[formulaire.name] = [];
-                for (var i=0; i<formulaire.options.length;i++) {
+                for (var i = 0; i < formulaire.options.length; i++) {
                     $scope.paragraph.settings.params[formulaire.name].push(formulaire.options[i].value)
                 }
             }
@@ -531,7 +531,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
                 $scope.paragraph.settings.params[formulaire.name].splice(idx, 1);
                 if (currentLength === formulaire.options.length) {
                     var allIndex = $scope.paragraph.settings.params[formulaire.name].indexOf('all');
-                    if (allIndex !== - 1) {
+                    if (allIndex !== -1) {
                         $scope.paragraph.settings.params[formulaire.name].splice(allIndex, 1);
                     }
                 }
@@ -866,6 +866,10 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
 
     $scope.getEditorValue = function() {
         return !$scope.editor ? $scope.paragraph.text : $scope.editor.getValue();
+    };
+
+    $scope.stop = function() {
+        event.stopPropagation();
     };
 
     $scope.getProgress = function() {

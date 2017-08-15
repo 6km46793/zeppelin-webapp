@@ -1,8 +1,9 @@
 <form id="{{paragraph.id}}_form" role="form" ng-show="!paragraph.config.tableHide" class=" paragraphForm form-horizontal row">
     <div class="form-group col-sm-6 col-md-6 col-lg-zhifu-7" ng-repeat="formulaire in paragraph.settings.forms | toArray" ng-init="loadForm(formulaire, paragraph.settings.params)">
 
-        <!-- <h3>{{formulaire.name | ZhifuCtrl}}</h3>
-    <h2>{{getMessage(formulaire.name, 'name')}}</h2> -->
+        <!-- <h3>{{formulaire.name | ZhifuCtrl}}</h3> -->
+        <!-- <h2>{{getMessage(formulaire.name, 'name')}}</h2> -->
+        <!-- <h5>{{paragraph.title}}</h5> -->
         <!-- name -->
         <label class="control-label input-sm" ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }">{{getMessage(formulaire.name, 'name')}}</label>
 
@@ -16,14 +17,14 @@
             <!-- datetime -->
             <div ng-if="getMessage(formulaire.name, 'type') == 'datetime'">
                 <div class="dropdown">
-                    <a class="dropdown-toggle" id="{{formulaire.name}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
+                    <a class="dropdown-toggle" id="{{formulaire.name+'_'+paragraph.title}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
                         <div class="input-group">
                             <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'yyyy-MM-dd HH:mm'}}</span>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name, startView:'day', minView:'minute', minuteStep:1 }" />
+                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name+'_'+paragraph.title, startView:'day', minView:'minute', minuteStep:1 }" />
                     </ul>
                 </div>
             </div>
@@ -31,14 +32,14 @@
             <!-- date -->
             <div ng-if="getMessage(formulaire.name, 'type') == 'date'">
                 <div class="dropdown">
-                    <a class="dropdown-toggle" id="{{formulaire.name}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
+                    <a class="dropdown-toggle" id="{{formulaire.name+'_'+paragraph.title}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
                         <div class="input-group">
                             <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'yyyy-MM-dd'}}</span>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name, startView:'day', minView:'day' }" />
+                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name+'_'+paragraph.title, startView:'day', minView:'day' }" />
                     </ul>
                 </div>
             </div>
@@ -46,14 +47,14 @@
             <!-- time -->
             <div ng-if="getMessage(formulaire.name, 'type') == 'time'">
                 <div class="dropdown">
-                    <a class="dropdown-toggle" id="{{formulaire.name}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
+                    <a class="dropdown-toggle" id="{{formulaire.name+'_'+paragraph.title}}" role="button" data-toggle="dropdown" data-target=".dropdown1-parent" href="#">
                         <div class="input-group">
                             <span class="form-control datetimepicker-padding">{{paragraph.settings.params[formulaire.name] | date:'HH:mm'}}</span>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name, startView:'hour', minView:'minute', minuteStep:1 }" />
+                        <datetimepicker data-ng-model="paragraph.settings.params[formulaire.name]" data-datetimepicker-config="{ dropdownSelector: '#'+formulaire.name+'_'+paragraph.title, startView:'hour', minView:'minute', minuteStep:1 }" />
                     </ul>
                 </div>
             </div>
@@ -99,9 +100,9 @@
             <div ng-if="getMessage(formulaire.name, 'type') == 'dropdown'">
                 <div ng-if="paragraph.config.runOnSelectionChange == true">
                     <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="{{getMessage(formulaire.name, 'name')}}">
-                            <li>
+                        <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-ul" ng-click="stop()" aria-labelledby="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}">
+                            <li data-stopPropagation="true">
                                 <label ng-repeat="option in paragraph.settings.forms[formulaire.name].options" class="checkbox-item input-sm dropdown-item-label">
                                   <input type="checkbox"
                                          ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }"
@@ -114,9 +115,9 @@
                 </div>
                 <div ng-if="paragraph.config.runOnSelectionChange == false">
                     <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="{{getMessage(formulaire.name, 'name')}}">
-                            <li>
+                        <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-ul" ng-click="stop()" aria-labelledby="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}">
+                            <li data-stopPropagation="true">
                                 <label ng-repeat="option in paragraph.settings.forms[formulaire.name].options" class="checkbox-item input-sm dropdown-item-label">
                             <input type="checkbox"
                                    ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }"
