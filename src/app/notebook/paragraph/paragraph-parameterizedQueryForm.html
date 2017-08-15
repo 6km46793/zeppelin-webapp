@@ -102,7 +102,7 @@
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
                         <ul class="dropdown-menu dropdown-menu-ul" ng-click="stop()" aria-labelledby="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}">
-                            <li data-stopPropagation="true">
+                            <li>
                                 <label ng-repeat="option in paragraph.settings.forms[formulaire.name].options" class="checkbox-item input-sm dropdown-item-label">
                                   <input type="checkbox"
                                          ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }"
@@ -117,7 +117,7 @@
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle dropdown-select-button datetimepicker-padding" id="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{getMessage(formulaire.name, 'name')}}<span class="caret dropdown-caret"></span></button>
                         <ul class="dropdown-menu dropdown-menu-ul" ng-click="stop()" aria-labelledby="{{paragraph.title + '_' + getMessage(formulaire.name, 'name')}}">
-                            <li data-stopPropagation="true">
+                            <li>
                                 <label ng-repeat="option in paragraph.settings.forms[formulaire.name].options" class="checkbox-item input-sm dropdown-item-label">
                             <input type="checkbox"
                                    ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }"
