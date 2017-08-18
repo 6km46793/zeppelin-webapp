@@ -12,7 +12,16 @@
  * limitations under the License.
  */
 
-angular.module('zeppelinWebApp').controller('NotebookCtrl', NotebookCtrl);
+var zeppelinWebApp = angular.module('zeppelinWebApp')
+
+zeppelinWebApp.controller('NotebookCtrl', NotebookCtrl);
+
+// 添加自定义过滤器，用来过滤名字显示
+zeppelinWebApp.filter('datetimeFilter', function() { //可以注入依赖
+    return function(msg) {
+        return 'zhifu';
+    }
+});
 
 NotebookCtrl.$inject = [
   '$scope',
@@ -111,6 +120,36 @@ function NotebookCtrl($scope, $route, $routeParams, $location, $rootScope,
         }
       }]
     });
+  };
+
+  $scope.getMessage = function(name, type) {
+      var nameList = name.split('_');
+      var nameListLen = nameList.length;
+      var paramobj = {};
+      if (nameListLen > 0) {
+          paramobj.name = nameList[0]
+      }
+      if (nameListLen > 1) {
+          paramobj.type = nameList[1]
+      }
+      if (nameListLen > 2) {
+          paramobj.options = nameList[2]
+      }
+      if (type === 'params_length') {
+          return nameList.length;
+      }
+      return paramobj[type] || name;
+  };
+
+  $scope.canShowCode = function(ticket) {
+      if (ticket.principal == 'anonymous') {
+          return true;
+      } else {
+          var rolesStr = ticket.roles
+          rolesStr = rolesStr.substring(1, rolesStr.length-1)
+          var roleArray = rolesStr.split(',')
+          return roleArray.length > 0 && roleArray.indexOf('developer') != -1;
+      }
   };
 
   /** Init the new controller */

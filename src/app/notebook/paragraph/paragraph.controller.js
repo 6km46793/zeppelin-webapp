@@ -14,22 +14,7 @@
 
 var zeppelinWebApp = angular.module('zeppelinWebApp')
 
-// 添加自定义过滤器，用来过滤名字显示
-zeppelinWebApp.filter('ZhifuCtrl', function() { //可以注入依赖
-    return function(msg) {
-        console.log('***************' + msg + '***************');
-        return msg + 'zhifu'
-    }
-});
-
-zeppelinWebApp.filter('datetimeFilter', function() { //可以注入依赖
-    return function(msg) {
-        return 'zhifu';
-    }
-});
-
 zeppelinWebApp.controller('ParagraphCtrl', ParagraphCtrl);
-
 
 
 ParagraphCtrl.$inject = [
@@ -276,25 +261,6 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
         }
         editorSetting.isOutputHidden = $scope.paragraph.config.editorSetting.editOnDblClick;
     };
-
-    $scope.getMessage = function(name, type) {
-        var nameList = name.split('_');
-        var nameListLen = nameList.length;
-        var paramobj = {};
-        if (nameListLen > 0) {
-            paramobj.name = nameList[0]
-        }
-        if (nameListLen > 1) {
-            paramobj.type = nameList[1]
-        }
-        if (nameListLen > 2) {
-            paramobj.options = nameList[2]
-        }
-        if (type === 'params_length') {
-            return nameList.length;
-        }
-        return paramobj[type] || name;
-    }
 
     $scope.saveParagraph = function(paragraph) {
         const dirtyText = paragraph.text;

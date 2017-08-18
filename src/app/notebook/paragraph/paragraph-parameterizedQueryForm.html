@@ -1,9 +1,6 @@
 <form id="{{paragraph.id}}_form" role="form" ng-show="!paragraph.config.tableHide" class=" paragraphForm form-horizontal row">
     <div class="form-group col-sm-6 col-md-6 col-lg-zhifu-7" ng-repeat="formulaire in paragraph.settings.forms | toArray" ng-init="loadForm(formulaire, paragraph.settings.params)">
 
-        <!-- <h3>{{formulaire.name | ZhifuCtrl}}</h3> -->
-        <!-- <h2>{{getMessage(formulaire.name, 'name')}}</h2> -->
-        <!-- <h5>{{paragraph.title}}</h5> -->
         <!-- name -->
         <label class="control-label input-sm" ng-class="{'disable': paragraph.status == 'RUNNING' || paragraph.status == 'PENDING' }">{{getMessage(formulaire.name, 'name')}}</label>
 
