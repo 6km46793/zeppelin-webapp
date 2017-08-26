@@ -648,6 +648,9 @@ function ResultCtrl($scope, $rootScope, $route, $window, $routeParams, $location
   };
 
   $scope.getBase64ImageSrc = function(base64Data) {
+      console.log('data:image/png;base64 - - start');
+      console.log(base64Data);
+      console.log('data:image/png;base64 - - end');
     return 'data:image/png;base64,' + base64Data;
   };
 
