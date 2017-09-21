@@ -1,0 +1,8 @@
+{
+  "des": "全局登录用户数据",
+  "ticket": {
+    "principal": "anonymous",
+    "ticket": "anonymous",
+    "roles": "[]"
+  }
+}

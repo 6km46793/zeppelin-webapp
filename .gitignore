@@ -1,0 +1,8 @@
+fonts/
+bower_components/
+node_modules/
+.tmp/
+dist/
+.DS_Store
+yarn.lock
+!dist/zeppelin-web-0.7.2.war
