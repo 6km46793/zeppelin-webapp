@@ -1,6 +1,6 @@
 if [ $# -lt 1 ]; then
     echo "参数错误，正确的格式：command build|pack"
-    echo "build 重新编译并打包；pack 已经编译好生成了 dist 文件夹，将 dist 文件夹打包"
+    echo "build 重新编译并打包；pack 已经编译好生成了 dist 文件夹，将 dist 文件夹打包;deploy 正式环境，将打包结果替换掉默认生成的结果"
     exit 3
 fi
 
@@ -19,6 +19,11 @@ pack()
     mv zeppelin-web-0.7.2.war ../zeppelin-web-0.7.2.war
 }
 
+deploy()
+{
+    echo "deploy"
+}
+
 case "$1" in
     build)
         yarn run prebuild
@@ -27,5 +32,8 @@ case "$1" in
         ;;
     pack)
         pack
+        ;;
+    deploy)
+        deploy
         ;;
 esac
