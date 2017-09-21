@@ -142,13 +142,13 @@ function NotebookCtrl($scope, $route, $routeParams, $location, $rootScope,
   };
 
   $scope.canShowCode = function(ticket) {
-      if (ticket.principal == 'anonymous') {
+      if (ticket.principal === 'anonymous') {
           return true;
       } else {
           var rolesStr = ticket.roles
           rolesStr = rolesStr.substring(1, rolesStr.length-1)
           var roleArray = rolesStr.split(',')
-          return roleArray.length > 0 && roleArray.indexOf('developer') != -1;
+          return roleArray.length > 0 && roleArray.indexOf('developer') !== -1;
       }
   };
 
