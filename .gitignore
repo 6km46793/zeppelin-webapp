@@ -5,4 +5,4 @@ node_modules/
 dist/
 .DS_Store
 yarn.lock
-!./dist/zeppelin-web-0.7.2.war
+!dist/zeppelin-web-0.7.2.war
