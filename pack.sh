@@ -21,7 +21,17 @@ pack()
 
 deploy()
 {
-    echo "deploy"
+    targetPath="../zeppelin-0.7.2-bin-all/webapps/webapp"
+    warFileName="zeppelin-web-0.7.2.war"
+    if [ ! -d ${targetPath} ]; then
+        echo "请先解压 zeppelin 的 war 压缩包，并进入解压出的目录运行 sudo bin/zeppelin-daemon.sh start 命令"
+        exit 3
+    else
+        echo "已存在 webapp 目录，先删除再解压"
+        rm -rf ${targetPath}
+        mkdir -p ${targetPath}
+    fi
+    unzip ${warFileName} -d ${targetPath}
 }
 
 case "$1" in
