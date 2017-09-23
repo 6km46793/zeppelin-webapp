@@ -23,6 +23,7 @@ deploy()
 {
     # 重启服务
     sudo ../zeppelin-0.7.2-bin-all/bin/zeppelin-daemon.sh restart
+    sleep 1
     targetPath="../zeppelin-0.7.2-bin-all/webapps/webapp"
     warFileName="zeppelin-web-0.7.2.war"
     if [ ! -d ${targetPath} ]; then
