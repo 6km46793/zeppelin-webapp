@@ -11,25 +11,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-All fields:
+<!-- All fields: -->
+所有字段:
 <div class="allFields row">
-  <ul class="noDot">
-    <li class="liVertical" ng-repeat="col in tableDataColumns">
-      <div class="btn btn-default btn-xs"
-           data-drag="true"
-           data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-           ng-model="tableDataColumns"
-           jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}">
-         {{col.name | limitTo: 30}}{{col.name.length > 30 ? '...' : ''}}
-      </div>
-    </li>
-  </ul>
+    <ul class="noDot">
+        <li class="liVertical" ng-repeat="col in tableDataColumns">
+            <div class="btn btn-default btn-xs" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="tableDataColumns" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}">
+                {{col.name | limitTo: 30}}{{col.name.length > 30 ? '...' : ''}}
+            </div>
+        </li>
+    </ul>
 </div>
 
 <div class="row" ng-if="graphMode!='scatterChart'">
-  <div class="col-md-4">
-    <span class="columns lightBold">
-      Keys
+    <div class="col-md-4">
+        <span class="columns lightBold">
+      <!-- Keys -->
+      横坐标
       <ul data-drop="true"
           ng-model="config.keys"
           jqyoui-droppable="{multiple:true, onDrop:'save()'}"
@@ -37,14 +35,15 @@ All fields:
         <li ng-repeat="item in config.keys">
           <div class="btn btn-primary btn-xs">
             {{item.name}} <span class="fa fa-close" ng-click="removeKey($index)"></span>
-          </div>
-        </li>
-      </ul>
+    </div>
+    </li>
+    </ul>
     </span>
-  </div>
-  <div class="col-md-4">
+</div>
+<div class="col-md-4">
     <span class="columns lightBold">
-      Groups
+      <!-- Groups -->
+      分组
       <ul data-drop="true"
           ng-model="config.groups"
           jqyoui-droppable="{multiple:true, onDrop:'save()'}"
@@ -52,14 +51,15 @@ All fields:
         <li ng-repeat="item in config.groups">
           <div class="btn btn-success btn-xs">
             {{item.name}} <span class="fa fa-close" ng-click="removeGroup($index)"></span>
-          </div>
-        </li>
-      </ul>
-    </span>
-  </div>
-  <div class="col-md-4">
+</div>
+</li>
+</ul>
+</span>
+</div>
+<div class="col-md-4">
     <span class="columns lightBold">
-      Values
+      <!-- Values -->
+      纵坐标
       <ul data-drop="true"
           ng-model="config.values"
           jqyoui-droppable="{multiple:true, onDrop:'save()'}"
@@ -71,18 +71,18 @@ All fields:
                  data-toggle="dropdown">
               {{item.name | limitTo: 30}}{{item.name.length > 30 ? '...' : ''}}
               <font style="color:#EEEEEE;"><span class="lightBold" style="text-transform: uppercase;">{{item.aggr}}</span></font>
-              <span class="fa fa-close" ng-click="removeValue($index)"></span>
-            </div>
-            <ul class="dropdown-menu" role="menu">
-              <li ng-click="setValueAggr($index, 'sum')"><a>sum</a></li>
-              <li ng-click="setValueAggr($index, 'count')"><a>count</a></li>
-              <li ng-click="setValueAggr($index, 'avg')"><a>avg</a></li>
-              <li ng-click="setValueAggr($index, 'min')"><a>min</a></li>
-              <li ng-click="setValueAggr($index, 'max')"><a>max</a></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </span>
-  </div>
+    <span class="fa fa-close" ng-click="removeValue($index)"></span>
+</div>
+<ul class="dropdown-menu" role="menu">
+    <li ng-click="setValueAggr($index, 'sum')"><a>sum</a></li>
+    <li ng-click="setValueAggr($index, 'count')"><a>count</a></li>
+    <li ng-click="setValueAggr($index, 'avg')"><a>avg</a></li>
+    <li ng-click="setValueAggr($index, 'min')"><a>min</a></li>
+    <li ng-click="setValueAggr($index, 'max')"><a>max</a></li>
+</ul>
+</div>
+</li>
+</ul>
+</span>
+</div>
 </div>
