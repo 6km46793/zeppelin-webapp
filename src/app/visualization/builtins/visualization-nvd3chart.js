@@ -61,6 +61,7 @@ export default class Nvd3ChartVisualization extends Visualization {
             var sortedData = d.series.sort(function(item) {
                 return item.value;
             });
+            console.log(sortedData);
             var rows = '';
             for (var i=0;i<sortedData.length; i++) {
                 rows += (
