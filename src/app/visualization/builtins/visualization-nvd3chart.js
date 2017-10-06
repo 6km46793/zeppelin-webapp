@@ -53,32 +53,41 @@ export default class Nvd3ChartVisualization extends Visualization {
     }
 
     if (this.type() === 'lineChart' || this.type() === 'stackedAreaChart') {
-        // console.log(chart.interactiveLayer.tooltip.contentGenerator())
-        this.chart.interactiveLayer.tooltip.contentGenerator(function (d, elem) {
-            if (d === null) {
-                return '';
-            }
-            var sortedData = d.series.sort(function(item) {
-                return item.value;
-            });
-            console.log(sortedData);
-            var rows = '';
-            for (var i=0;i<sortedData.length; i++) {
-                rows += (
-                    '<tr><td class="legend-color-guide"><div style="background-color:'+sortedData[i].color+
-                    '"></div></td><td class="key">' + sortedData[i].key +
-                    '</td><td class="value">' +
-                    (sortedData[i].value ? sortedData[i].value.toFixed(2) : 0) +
-                    '</td></tr>'
-                )
-            }
-
-            var header = '<thead><tr><td colspan="3"><strong class="x-value">value' +
-            d.value +
-            '</strong></td></tr></thead>';
-
-            return '<table>' + header + '<tbody>' + rows + '</tbody></table>';
-        });
+        // console.log(this.chart.interactiveLayer.tooltip.contentGenerator())
+        // this.chart.interactiveLayer.tooltip.contentGenerator(function (d, elem) {
+        //     if (d === null) {
+        //         return '';
+        //     }
+        //     // console.log(d3);
+        //     // console.log(nv.models.tooltip());
+        //     // console.log(nv.models.axis());
+        //     console.log(d3.svg)
+        //     var sortedData = d.series.sort(function(a, b) {
+        //         return b.value - a.value;
+        //     });
+        //     var rows = '';
+        //     for (var i=0;i<sortedData.length; i++) {
+        //         rows += (
+        //             '<tr><td class="legend-color-guide"><div style="background-color:'+sortedData[i].color+
+        //             '"></div></td><td class="key">' + sortedData[i].key +
+        //             '</td><td class="value">' +
+        //             (sortedData[i].value ? sortedData[i].value.toFixed(2) : 0) +
+        //             '</td></tr>'
+        //         );
+        //     }
+        //
+        //     var header = '<thead><tr><td colspan="3"><strong class="x-value">value' +
+        //     d.value +
+        //     '</strong></td></tr></thead>';
+        //
+        //     return '<table>' + header + '<tbody>' + rows + '</tbody></table>';
+        // });
+        // 获取不到横坐标的值，只能直接修改 nv.d3.js 的 contentGenerator 中的代码了，
+        // 在 nv.d3.js 插入一下代码：
+        // var contentGenerator = function(d, elem) { 里面
+        // d.series = d.series.sort(function(a, b) {
+        //     return b.value - a.value;
+        // });
     }
 
     d3.select('#' + this.targetEl[0].id + ' svg')
