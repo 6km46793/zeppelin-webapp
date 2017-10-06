@@ -54,6 +54,7 @@ export default class Nvd3ChartVisualization extends Visualization {
 
     if (this.type() === 'lineChart' || this.type() === 'stackedAreaChart') {
         // console.log(this.chart.interactiveLayer.tooltip.contentGenerator())
+        
         // this.chart.interactiveLayer.tooltip.contentGenerator(function (d, elem) {
         //     if (d === null) {
         //         return '';
