@@ -52,29 +52,31 @@ export default class Nvd3ChartVisualization extends Visualization {
     } catch (ignoreErr) {
     }
 
-    if (this.type() === "lineChart" || this.type() === "stackedAreaChart") {
+    if (this.type() === 'lineChart' || this.type() === 'stackedAreaChart') {
         // console.log(chart.interactiveLayer.tooltip.contentGenerator())
         this.chart.interactiveLayer.tooltip.contentGenerator(function (d, elem) {
             if (d === null) {
-                return "";
+                return '';
             }
             var sortedData = d.series.sort(function(item) {
                 return item.value;
             });
-            var rows = "";
+            var rows = '';
             for (var i=0;i<sortedData.length; i++) {
                 rows += (
-                    "<tr>" +
-                    "<td class='legend-color-guide'><div style='background-color:"+sortedData[i].color+"'></div></td>" +
-                    "<td class='key'>" + sortedData[i].key + "</td>" +
-                    "<td class='value'>" + (sortedData[i].value ? sortedData[i].value.toFixed(2) : 0) + "</td>" +
-                    "</tr>"
+                    '<tr><td class="legend-color-guide"><div style="background-color:'+sortedData[i].color+
+                    '"></div></td><td class="key">' + sortedData[i].key +
+                    '</td><td class="value">' +
+                    (sortedData[i].value ? sortedData[i].value.toFixed(2) : 0) +
+                    '</td></tr>'
                 )
             }
 
-            var header = "<thead><tr><td colspan='3'><strong class='x-value'>value" + d.value + "</strong></td></tr></thead>";
+            var header = '<thead><tr><td colspan="3"><strong class="x-value">value' +
+            d.value +
+            '</strong></td></tr></thead>';
 
-            return "<table>" + header + "<tbody>" + rows + "</tbody>" + "</table>";
+            return '<table>' + header + '<tbody>' + rows + '</tbody></table>';
         });
     }
 
