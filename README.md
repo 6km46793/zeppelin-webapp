@@ -87,3 +87,4 @@ If you wish to help us and contribute to Zeppelin WebApplication, please look at
 - 查看源代码
 - 新建笔记本
 - 删除笔记本
+- 私人模式开启关闭
