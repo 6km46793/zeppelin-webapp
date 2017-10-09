@@ -18,6 +18,9 @@ MainCtrl.$inject = ['$scope', '$rootScope', '$window', 'arrayOrderingSrv'];
 
 function MainCtrl($scope, $rootScope, $window, arrayOrderingSrv) {
   $scope.looknfeel = 'default';
+  $rootScope.appName = "数据分析";
+  $rootScope.notebook = "笔记本";
+  $rootScope.note = "笔记";
 
   var init = function() {
     $scope.asIframe = (($window.location.href.indexOf('asIframe') > -1) ? true : false);
@@ -53,8 +56,8 @@ function MainCtrl($scope, $rootScope, $window, arrayOrderingSrv) {
   $rootScope.canShowCode = function(ticket) {
       console.log(ticket)
       if (ticket.principal === 'anonymous') {
-        //   return true;
-          return false
+          return true;
+        //   return false
       } else {
           var roleArray = ticket.roles
           return roleArray.length > 0 && roleArray.indexOf('developer') !== -1;
