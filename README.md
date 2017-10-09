@@ -90,6 +90,13 @@ If you wish to help us and contribute to Zeppelin WebApplication, please look at
 | 首页：note 后面的：清空输出、重命名、删除note
 | 首页：点击notebook 不出现新建
 | 首页：notebook 旁边的 job 按钮
+| 下面的是 notebook 页面的权限控制
+| 总控制按钮列表的 克隆按钮
+| 总控制按钮列表的 切换私有状态按钮
+| 总控制按钮列表的 下载按钮
+| 总控制按钮列表的 版本控制按钮组
+| 总控制按钮列表的 删除、恢复 note 按钮
+| 总控制按钮列表的 设置按钮组
 
 - 查看源代码
 - 新建笔记本
