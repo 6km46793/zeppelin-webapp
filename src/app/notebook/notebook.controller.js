@@ -142,7 +142,6 @@ function NotebookCtrl($scope, $route, $routeParams, $location, $rootScope,
   };
 
   $scope.canShowCode = function(ticket) {
-      console.log(ticket)
       if (ticket.principal === 'anonymous') {
           return true;
       } else {
