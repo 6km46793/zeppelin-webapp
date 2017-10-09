@@ -19,8 +19,8 @@ MainCtrl.$inject = ['$scope', '$rootScope', '$window', 'arrayOrderingSrv'];
 function MainCtrl($scope, $rootScope, $window, arrayOrderingSrv) {
   $scope.looknfeel = 'default';
   $rootScope.appName = '数据分析';
-  $rootScope.notebook = '笔记本';
-  $rootScope.note = '笔记';
+  $rootScope.notebook = '任务组';
+  $rootScope.note = '任务';
 
   var init = function() {
     $scope.asIframe = (($window.location.href.indexOf('asIframe') > -1) ? true : false);

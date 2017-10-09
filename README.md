@@ -1,23 +1,20 @@
 # Zeppelin Web Application
 
-This is Zeppelin's frontend project.
+本工程在 0.7.2 版本运行<br>
+通过修改 zeppelin 的前段项目来实现自己的一些定制，定制内容如下：<br>
 
-## Development Guide
+- 页面上添加日期、时间、日期选择控件
+- 添加下来多选控件并支持全选、全不选功能
+- 权限控制。在不需要登录或者需要登录时，developer 分组的用户才能看见 zeppelin 的全貌，别的用户只能看见任务并运行任务，不能进行任何的增删改查等操作
+- 页面样式的一些微调
+- 页面显示的微调
 
-### Packaging
+## 开发调试
 
-If you want to package the zeppelin-web only, simply run this command in this folder.<br>
-This will download all the dependencies including node (the binaries in the folder `zeppelin-web/node`)
-
-```
-$ mvn package
-```
-
-### Local Development
-
-It is recommended to install node 6.0.0+ since Zeppelin uses 6.9.1+ (see [creationix/nvm](https://github.com/creationix/nvm))
-
-All build commands are described in [package.json](./package.json)
+1. 下载 zeppelin 并在本地运行起来。sudo zeppelin-deamon.sh start
+2. clone 本工程到本地
+3. 安装 node.js npm
+4. 按下面的步骤云信
 
 ```sh
 # install required depepdencies and bower packages (only once)
@@ -38,49 +35,19 @@ $ SERVER_PORT=8080 yarn run dev
 $ yarn run test
 ```
 
-## Troubleshooting
+## zeppelin 设置相关
 
-### Git error
+1. 虚拟机内存设置：zeppelin-env.sh。我的配置
+2. 登录设置：shiro.ini。我的配置
 
-In case of the error `ECMDERR Failed to execute "git ls-remote --tags --heads git://xxxxx", exit code of #128`
-
-change your git config with `git config --global url."https://".insteadOf git://`
-
-### Proxy issues
-
-Try to add to the `.bowerrc` file the following content:
-
-```
-  "proxy" : "http://<host>:<port>",
-  "https-proxy" : "http://<host>:<port>"
-```
-
-also try to add proxy info to yarn install command:
-
-```xml
-<execution>
-    <id>yarn install</id>
-    <goals>
-        <goal>yarn</goal>
-    </goals>
-    <configuration>
-        <arguments>--proxy=http://<host>:<port> --https-proxy=http://<host>:<port></arguments>
-    </configuration>
-</execution>
-```
-
-and retry to build again.
-
-## Contribute on Zeppelin Web
-
-If you wish to help us and contribute to Zeppelin WebApplication, please look at the overall project [contribution guidelines](https://zeppelin.apache.org/contribution/contributions.html) and the more focused [Zeppelin WebApplication's documentation](https://zeppelin.apache.org/contribution/webapplication.html).
-
-# 介绍
+注意：运行 zeppelin 是默认配置，只有在 conf 目录下，通过 .template 文件来初始化对应文件，然后重启 zeppelin，配置才会生效
 
 # 注意
 
 1. 图例数据排序显示，可以修改 visualization-nvd3chart.js ，也可以修改 nv.d3.js。具体解释见 visualization-nvd3chart.js this.chart.interactiveLayer.tooltip.contentGenerator 这一段的代码
 2. developer 角色才能看见。zeppelin 的设置，在 conf 目录下的 shiro.ini 文件中
+
+上面两点很重要。
 
 # 非 developer 组用户不可操作的部分：
 
@@ -103,8 +70,3 @@ If you wish to help us and contribute to Zeppelin WebApplication, please look at
 | 代码查看按钮
 | 点击空白处新建一条笔记
 | 右上角控制：除推出登录外，都去掉
-
-- 查看源代码
-- 新建笔记本
-- 删除笔记本
-- 私人模式开启关闭
