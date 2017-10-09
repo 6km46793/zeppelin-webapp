@@ -141,18 +141,6 @@ function NotebookCtrl($scope, $route, $routeParams, $location, $rootScope,
       return paramobj[type] || name;
   };
 
-  $scope.canShowCode = function(ticket) {
-      if (ticket.principal === 'anonymous') {
-          return true;
-      } else {
-        //   var rolesStr = ticket.roles
-        //   rolesStr = rolesStr.substring(1, rolesStr.length-1)
-        //   var roleArray = rolesStr.split(',')
-          var roleArray = ticket.roles
-          return roleArray.length > 0 && roleArray.indexOf('developer') !== -1;
-      }
-  };
-
   /** Init the new controller */
   var initNotebook = function() {
     noteVarShareService.clear();

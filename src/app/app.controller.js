@@ -50,6 +50,17 @@ function MainCtrl($scope, $rootScope, $window, arrayOrderingSrv) {
     }
   };
 
+  $rootScope.canShowCode = function(ticket) {
+      console.log(ticket)
+      if (ticket.principal === 'anonymous') {
+        //   return true;
+          return false
+      } else {
+          var roleArray = ticket.roles
+          return roleArray.length > 0 && roleArray.indexOf('developer') !== -1;
+      }
+  };
+
   BootstrapDialog.defaultOptions.onshown = function() {
     angular.element('#' + this.id).find('.btn:last').focus();
   };
@@ -57,4 +68,3 @@ function MainCtrl($scope, $rootScope, $window, arrayOrderingSrv) {
   // Remove BootstrapDialog animation
   BootstrapDialog.configDefaultOptions({animate: false});
 }
-
