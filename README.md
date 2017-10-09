@@ -37,8 +37,16 @@ $ yarn run test
 
 ## zeppelin 设置相关
 
-1. 虚拟机内存设置：zeppelin-env.sh。我的配置
-2. 登录设置：shiro.ini。我的配置
+1. 虚拟机内存设置：zeppelin-env.sh
+2. 登录设置：shiro.ini
+
+zeppelin-env.sh:<br>
+export ZEPPELIN_MEM="-Xms512m -Xmx1024m -XX:MaxPermSize=1024m"<br>
+export ZEPPELIN_INTP_MEM="-Xms512m -Xmx1024m -XX:MaxPermSize=1024m"<br>
+export ZEPPELIN_INTERPRETER_OUTPUT_LIMIT=1024000000<br>
+shiro.ini:<br>
+admin = 123456, developer<br>
+user = 123456, user<br>
 
 注意：运行 zeppelin 是默认配置，只有在 conf 目录下，通过 .template 文件来初始化对应文件，然后重启 zeppelin，配置才会生效
 
