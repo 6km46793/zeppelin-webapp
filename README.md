@@ -50,7 +50,12 @@ user = 123456, user<br>
 
 注意：运行 zeppelin 是默认配置，只有在 conf 目录下，通过 .template 文件来初始化对应文件，然后重启 zeppelin，配置才会生效
 
-# 注意
+## manage.sh 讲解
+
+1. 本地运行 pack 或者 build 命令，生成最新的压缩包
+2. 服务器上运行 deploy，这个命令是将最新的打包结果替换zeppelin 默认的 webapps/webapp 下的所有文件。需要注意的是：zeppelin-webapp 工程必须和 zeppelin-0.7.2-bin-all 在同级目录；zeppelin 在每次 stop 的时候，会删除 webapps 目录，每次 start 的时候，会从根目录解压
+
+## 注意
 
 1. 图例数据排序显示，可以修改 visualization-nvd3chart.js ，也可以修改 nv.d3.js。具体解释见 visualization-nvd3chart.js this.chart.interactiveLayer.tooltip.contentGenerator 这一段的代码
 2. developer 角色才能看见。zeppelin 的设置，在 conf 目录下的 shiro.ini 文件中
