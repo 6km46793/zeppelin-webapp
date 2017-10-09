@@ -30,7 +30,7 @@
             ng-click="toggleOutput(paragraph)"></span>
 
         <span class="dropdown navbar-right">
-            <span class="icon-settings" style="cursor:pointer" data-toggle="dropdown" type="button"></span>
+            <span ng-if="canShowCode(ticket)" class="icon-settings" style="cursor:pointer" data-toggle="dropdown" type="button"></span>
 
             <ul class="dropdown-menu dropdown-menu-right" role="menu" style="width:270px;z-index:1002">
                 <li ng-controller="clipboardCtrl" ng-click="$event.stopPropagation()" style="text-align:center;margin-top:4px;">
