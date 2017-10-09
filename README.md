@@ -84,6 +84,13 @@ If you wish to help us and contribute to Zeppelin WebApplication, please look at
 
 # 非 developer 组用户不可操作的部分：
 
+| 位置
+| ---------------------------
+| 首页：倒入 note、新建note
+| 首页：note 后面的：清空输出、重命名、删除note
+| 首页：点击notebook 不出现新建
+| 首页：notebook 旁边的 job 按钮
+
 - 查看源代码
 - 新建笔记本
 - 删除笔记本
