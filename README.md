@@ -81,3 +81,9 @@ If you wish to help us and contribute to Zeppelin WebApplication, please look at
 
 1. 图例数据排序显示，可以修改 visualization-nvd3chart.js ，也可以修改 nv.d3.js。具体解释见 visualization-nvd3chart.js this.chart.interactiveLayer.tooltip.contentGenerator 这一段的代码
 2. developer 角色才能看见。zeppelin 的设置，在 conf 目录下的 shiro.ini 文件中
+
+# 非 developer 组用户不可操作的部分：
+
+- 查看源代码
+- 新建笔记本
+- 删除笔记本
