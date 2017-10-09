@@ -22,7 +22,9 @@ limitations under the License.
     </div>
 
     <div>
-        {{ticket}}
+        <div class="">
+            <h1>{{ticket}}</h1>
+        </div>
         <div ng-if="canShowCode(ticket) && !paragraph.config.editorHide && !viewOnly" style="margin-bottom:3px;">
             <code-editor paragraph-id="paragraph.id" paragraph-context="paragraph" dirty-text="dirtyText" original-text="originalText" on-load="aceLoaded" revision-view="revisionView"></code-editor>
         </div>
