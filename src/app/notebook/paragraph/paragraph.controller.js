@@ -286,8 +286,8 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
           'semi-circle-spin': 1,
           'ball-scale-random': 3
         };
-        $.each(divs, function(key, value) {
-          $('.loader-inner.' + key).html(addDivs(value));
+        jQuery.each(divs, function(key, value) {
+          jQuery('.loader-inner.' + key).html(addDivs(value));
         })
     }
 
