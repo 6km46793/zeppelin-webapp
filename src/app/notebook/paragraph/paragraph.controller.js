@@ -1043,7 +1043,6 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
     });
 
     $scope.$on('updateParagraph', function(event, data) {
-        console.error('updateParagraph')
         if (data.paragraph.id === $scope.paragraph.id &&
             (data.paragraph.dateCreated !== $scope.paragraph.dateCreated ||
                 data.paragraph.text !== $scope.paragraph.text ||
