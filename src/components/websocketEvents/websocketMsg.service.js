@@ -160,8 +160,6 @@ function websocketMsgSrv($rootScope, websocketEvents) {
     },
 
     runParagraph: function(paragraphId, paragraphTitle, paragraphData, paragraphConfig, paragraphParams) {
-        $rootScope.showLoadding = true;
-        console.error('runParagraph start')
       websocketEvents.sendNewEvent({
         op: 'RUN_PARAGRAPH',
         data: {
@@ -172,8 +170,6 @@ function websocketMsgSrv($rootScope, websocketEvents) {
           params: paragraphParams
         }
       });
-      setTimeout(function() {$rootScope.showLoadding = false}, 0)
-      console.error('runParagraph end')
     },
 
     runAllParagraphs: function(noteId, paragraphs) {

@@ -246,6 +246,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
     };
 
     $scope.runParagraph = function(data) {
+        $rootScope.showLoadding = true;
         websocketMsgSrv.runParagraph($scope.paragraph.id, $scope.paragraph.title,
             data, $scope.paragraph.config, $scope.paragraph.settings.params);
         $scope.originalText = angular.copy(data);
@@ -1042,6 +1043,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
     });
 
     $scope.$on('updateParagraph', function(event, data) {
+        console.error('updateParagraph')
         if (data.paragraph.id === $scope.paragraph.id &&
             (data.paragraph.dateCreated !== $scope.paragraph.dateCreated ||
                 data.paragraph.text !== $scope.paragraph.text ||

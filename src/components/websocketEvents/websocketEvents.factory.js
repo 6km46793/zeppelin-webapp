@@ -113,6 +113,7 @@ function websocketEvents($rootScope, $websocket, $location, baseUrlSrv) {
       $rootScope.$broadcast('appendParagraphOutput', data);
     } else if (op === 'PARAGRAPH_UPDATE_OUTPUT') {
       $rootScope.$broadcast('updateParagraphOutput', data);
+      $rootScope.showLoadding = false;
     } else if (op === 'PROGRESS') {
       $rootScope.$broadcast('updateProgress', data);
     } else if (op === 'COMPLETION_LIST') {
@@ -187,4 +188,3 @@ function websocketEvents($rootScope, $websocket, $location, baseUrlSrv) {
 
   return websocketCalls;
 }
-
