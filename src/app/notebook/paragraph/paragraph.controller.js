@@ -292,6 +292,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
     }
 
     $scope.runParagraph = function(data) {
+        console.log('runParagraph start');
         initLoading()
         $scope.showLoadding = true;
         websocketMsgSrv.runParagraph($scope.paragraph.id, $scope.paragraph.title,
@@ -310,6 +311,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
         editorSetting.isOutputHidden = $scope.paragraph.config.editorSetting.editOnDblClick;
         // setTimeout(function(){ $scope.showLoadding = false }, 10000);
         $scope.showLoadding = false
+        console.log('runParagraph end');
     };
 
     $scope.saveParagraph = function(paragraph) {
