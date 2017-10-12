@@ -117,6 +117,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
 
     // Controller init
     $scope.init = function(newParagraph, note) {
+        $scope.showLoadding = false
         $scope.paragraph = newParagraph;
         $scope.parentNote = note;
         $scope.originalText = angular.copy(newParagraph.text);
@@ -245,7 +246,54 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
         websocketMsgSrv.cancelParagraphRun(paragraph.id);
     };
 
+    function addDivs(n) {
+      var arr = [];
+      for (var i = 1; i <= n; i++) {
+        arr.push('<div></div>');
+      }
+      return arr;
+    };
+
+    function initLoading() {
+        var divs = {
+          'ball-pulse': 3,
+          'ball-grid-pulse': 9,
+          'ball-clip-rotate': 1,
+          'ball-clip-rotate-pulse': 2,
+          'square-spin': 1,
+          'ball-clip-rotate-multiple': 2,
+          'ball-pulse-rise': 5,
+          'ball-rotate': 1,
+          'cube-transition': 2,
+          'ball-zig-zag': 2,
+          'ball-zig-zag-deflect': 2,
+          'ball-triangle-path': 3,
+          'ball-scale': 1,
+          'line-scale': 5,
+          'line-scale-party': 4,
+          'ball-scale-multiple': 3,
+          'ball-pulse-sync': 3,
+          'ball-beat': 3,
+          'line-scale-pulse-out': 5,
+          'line-scale-pulse-out-rapid': 5,
+          'ball-scale-ripple': 1,
+          'ball-scale-ripple-multiple': 3,
+          'ball-spin-fade-loader': 8,
+          'line-spin-fade-loader': 8,
+          'triangle-skew-spin': 1,
+          'pacman': 5,
+          'ball-grid-beat': 9,
+          'semi-circle-spin': 1,
+          'ball-scale-random': 3
+        };
+        $.each(divs, function(key, value) {
+          $('.loader-inner.' + key).html(addDivs(value));
+        })
+    }
+
     $scope.runParagraph = function(data) {
+        initLoading()
+        $scope.showLoadding = true;
         websocketMsgSrv.runParagraph($scope.paragraph.id, $scope.paragraph.title,
             data, $scope.paragraph.config, $scope.paragraph.settings.params);
         $scope.originalText = angular.copy(data);
@@ -260,6 +308,8 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
             openEditorAndOpenTable($scope.paragraph);
         }
         editorSetting.isOutputHidden = $scope.paragraph.config.editorSetting.editOnDblClick;
+        // setTimeout(function(){ $scope.showLoadding = false }, 10000);
+        $scope.showLoadding = false
     };
 
     $scope.saveParagraph = function(paragraph) {
@@ -373,25 +423,21 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
     };
 
     $scope.closeEditor = function(paragraph) {
-        console.log('close the note');
         paragraph.config.editorHide = true;
         commitParagraph(paragraph);
     };
 
     $scope.openEditor = function(paragraph) {
-        console.log('open the note');
         paragraph.config.editorHide = false;
         commitParagraph(paragraph);
     };
 
     $scope.closeTable = function(paragraph) {
-        console.log('close the output');
         paragraph.config.tableHide = true;
         commitParagraph(paragraph);
     };
 
     $scope.openTable = function(paragraph) {
-        console.log('open the output');
         paragraph.config.tableHide = false;
         commitParagraph(paragraph);
     };
@@ -986,7 +1032,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
 
             if (!registry[varName].clearWatcher) {
                 registry[varName].clearWatcher = scope.$watch(varName, function(newValue, oldValue) {
-                    console.log('angular object (paragraph) updated %o %o', varName, registry[varName]);
+                    // console.log('angular object (paragraph) updated %o %o', varName, registry[varName]);
                     if (registry[varName].skipEmit) {
                         registry[varName].skipEmit = false;
                         return;
@@ -999,7 +1045,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
                         registry[varName].interpreterGroupId);
                 });
             }
-            console.log('angular object (paragraph) created %o', varName);
+            // console.log('angular object (paragraph) created %o', varName);
             scope[varName] = data.angularObject.object;
 
             // create proxy for AngularFunction
@@ -1007,10 +1053,10 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
                 var funcName = varName.substring((ANGULAR_FUNCTION_OBJECT_NAME_PREFIX).length);
                 scope[funcName] = function() {
                     scope[varName] = arguments;
-                    console.log('angular function (paragraph) invoked %o', arguments);
+                    // console.log('angular function (paragraph) invoked %o', arguments);
                 };
 
-                console.log('angular function (paragraph) created %o', scope[funcName]);
+                // console.log('angular function (paragraph) created %o', scope[funcName]);
             }
         }
     });

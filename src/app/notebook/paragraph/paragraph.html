@@ -11,7 +11,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
+<div class="loadding" ng-show="showLoadding">
+    <div class="bg"></div>
+    <div class="animation loader-inner ball-pulse">
+    </div>
+</div>
 <div id="{{paragraph.id}}_container" ng-class="{'paragraph': !asIframe, 'paragraphAsIframe': asIframe}">
 
     <div ng-if="paragraph.config.title" id="{{paragraph.id}}_title" class="title"
