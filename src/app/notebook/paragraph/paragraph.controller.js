@@ -309,8 +309,8 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
             openEditorAndOpenTable($scope.paragraph);
         }
         editorSetting.isOutputHidden = $scope.paragraph.config.editorSetting.editOnDblClick;
-        // setTimeout(function(){ $scope.showLoadding = false }, 10000);
-        $scope.showLoadding = false
+        setTimeout(function(){ $scope.showLoadding = false }, 500);
+        // $scope.showLoadding = false
         console.log('runParagraph end');
     };
 
