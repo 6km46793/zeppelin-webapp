@@ -106,6 +106,12 @@ limitations under the License.
     <![endif]-->
     <!-- endbuild -->
 
+    <div class="loadding" ng-show="showLoadding">
+        <div class="bg"></div>
+        <div class="animation loader-inner ball-pulse">
+        </div>
+    </div>
+
     <script type="text/x-mathjax-config">
       var config = {
         extensions: ["tex2jax.js"],
@@ -181,5 +187,56 @@ limitations under the License.
     <script src="bower_components/angular-bootstrap-datetimepicker-github/src/js/datetimepicker.templates.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+    <script>
+        function addDivs(n) {
+          var arr = [];
+          for (var i = 1; i <= n; i++) {
+            arr.push('<div></div>');
+          }
+          return arr;
+        };
+
+        function initLoading() {
+            var divs = {
+              'ball-pulse': 3,
+              'ball-grid-pulse': 9,
+              'ball-clip-rotate': 1,
+              'ball-clip-rotate-pulse': 2,
+              'square-spin': 1,
+              'ball-clip-rotate-multiple': 2,
+              'ball-pulse-rise': 5,
+              'ball-rotate': 1,
+              'cube-transition': 2,
+              'ball-zig-zag': 2,
+              'ball-zig-zag-deflect': 2,
+              'ball-triangle-path': 3,
+              'ball-scale': 1,
+              'line-scale': 5,
+              'line-scale-party': 4,
+              'ball-scale-multiple': 3,
+              'ball-pulse-sync': 3,
+              'ball-beat': 3,
+              'line-scale-pulse-out': 5,
+              'line-scale-pulse-out-rapid': 5,
+              'ball-scale-ripple': 1,
+              'ball-scale-ripple-multiple': 3,
+              'ball-spin-fade-loader': 8,
+              'line-spin-fade-loader': 8,
+              'triangle-skew-spin': 1,
+              'pacman': 5,
+              'ball-grid-beat': 9,
+              'semi-circle-spin': 1,
+              'ball-scale-random': 3
+            };
+            jQuery.each(divs, function(key, value) {
+              jQuery('.loader-inner.' + key).html(addDivs(value));
+            })
+        }
+
+        $(function() {
+            console.log('zhifuzhifuzhifuzhifuzhifuzhifuzhifuzhifuzhifu');
+            initLoading();
+        });
+    </script>
   </body>
 </html>

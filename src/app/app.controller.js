@@ -21,6 +21,7 @@ function MainCtrl($scope, $rootScope, $window, arrayOrderingSrv) {
   $rootScope.appName = '数据分析';
   $rootScope.notebook = '任务组';
   $rootScope.note = '任务';
+  $rootScope.showLoadding = false
 
   var init = function() {
     $scope.asIframe = (($window.location.href.indexOf('asIframe') > -1) ? true : false);

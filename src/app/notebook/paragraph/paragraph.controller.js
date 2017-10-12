@@ -56,7 +56,6 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
     $scope.compiledScope = paragraphScope;
 
     paragraphScope.z = {
-        // z.runParagraph('20150213-231621_168813393')
         runParagraph: function(paragraphId) {
             if (paragraphId) {
                 var filtered = $scope.parentNote.paragraphs.filter(function(x) {
@@ -80,6 +79,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
                     dismissOnTimeout: false
                 });
             }
+
         },
 
         // Example: z.angularBind('my_var', 'Test Value', '20150213-231621_168813393')
@@ -117,7 +117,6 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
 
     // Controller init
     $scope.init = function(newParagraph, note) {
-        $scope.showLoadding = false
         $scope.paragraph = newParagraph;
         $scope.parentNote = note;
         $scope.originalText = angular.copy(newParagraph.text);
@@ -246,55 +245,7 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
         websocketMsgSrv.cancelParagraphRun(paragraph.id);
     };
 
-    function addDivs(n) {
-      var arr = [];
-      for (var i = 1; i <= n; i++) {
-        arr.push('<div></div>');
-      }
-      return arr;
-    };
-
-    function initLoading() {
-        var divs = {
-          'ball-pulse': 3,
-          'ball-grid-pulse': 9,
-          'ball-clip-rotate': 1,
-          'ball-clip-rotate-pulse': 2,
-          'square-spin': 1,
-          'ball-clip-rotate-multiple': 2,
-          'ball-pulse-rise': 5,
-          'ball-rotate': 1,
-          'cube-transition': 2,
-          'ball-zig-zag': 2,
-          'ball-zig-zag-deflect': 2,
-          'ball-triangle-path': 3,
-          'ball-scale': 1,
-          'line-scale': 5,
-          'line-scale-party': 4,
-          'ball-scale-multiple': 3,
-          'ball-pulse-sync': 3,
-          'ball-beat': 3,
-          'line-scale-pulse-out': 5,
-          'line-scale-pulse-out-rapid': 5,
-          'ball-scale-ripple': 1,
-          'ball-scale-ripple-multiple': 3,
-          'ball-spin-fade-loader': 8,
-          'line-spin-fade-loader': 8,
-          'triangle-skew-spin': 1,
-          'pacman': 5,
-          'ball-grid-beat': 9,
-          'semi-circle-spin': 1,
-          'ball-scale-random': 3
-        };
-        jQuery.each(divs, function(key, value) {
-          jQuery('.loader-inner.' + key).html(addDivs(value));
-        })
-    }
-
     $scope.runParagraph = function(data) {
-        console.log('runParagraph start');
-        initLoading()
-        $scope.showLoadding = true;
         websocketMsgSrv.runParagraph($scope.paragraph.id, $scope.paragraph.title,
             data, $scope.paragraph.config, $scope.paragraph.settings.params);
         $scope.originalText = angular.copy(data);
@@ -304,14 +255,9 @@ function ParagraphCtrl($scope, $rootScope, $route, $window, $routeParams, $locat
             closeEditorAndOpenTable($scope.paragraph);
         } else if (editorSetting.isOutputHidden &&
             !$scope.paragraph.config.editorSetting.editOnDblClick) {
-            // %md/%angular repl make output to be hidden by default after running
-            // so should open output if repl changed from %md/%angular to another
             openEditorAndOpenTable($scope.paragraph);
         }
         editorSetting.isOutputHidden = $scope.paragraph.config.editorSetting.editOnDblClick;
-        setTimeout(function(){ $scope.showLoadding = false }, 500);
-        // $scope.showLoadding = false
-        console.log('runParagraph end');
     };
 
     $scope.saveParagraph = function(paragraph) {
